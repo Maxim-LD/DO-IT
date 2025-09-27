@@ -1,5 +1,5 @@
 import mysql from 'mysql2/promise'
-import { config } from '../config'
+import { dbConfig } from '../config'
 import { logger } from '../utils/logger'
 
 export class DataBaseConnection {
@@ -22,11 +22,11 @@ export class DataBaseConnection {
     public async connect(): Promise<void> {
         try {
             this.pool = mysql.createPool({
-                host: config.database.host,
-                port: config.database.port,
-                user: config.database.user,
-                password: config.database.password,
-                database: config.database.database,
+                host: dbConfig.database.host,
+                port: dbConfig.database.port,
+                user: dbConfig.database.user,
+                password: dbConfig.database.password,
+                database: dbConfig.database.database,
                 charset: 'utf8mb4',
                 timezone: '+00:00',
                 dateStrings: false
