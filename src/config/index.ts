@@ -5,11 +5,26 @@ dotenv.config()
 interface Config {
     port: number,
     nodeEnv: string,
-    saltRounds: number,
+    baseUrl: string
     rateLimit: {
         windowMS: number
         maxRequests: number
     }
+    smtp: {
+        email: string
+        password: string
+    }
+}
+
+interface SecretsConfig {
+    saltRounds: number
+    secretKey: string
+    refreshSecret: string
+    emailSecret: string
+    tokenExpiry: string
+}
+
+interface DbConfig {
     database: {
         host: string;
         port: number;
@@ -42,11 +57,18 @@ for (const envVar of requiredEnvVars) {
 export const config: Config = {
     port: parseInt(process.env.PORT || '3000', 10),
     nodeEnv: process.env.NODE_ENV || 'development',
-    saltRounds: parseInt(process.env.SALT_ROUNDS || ''),
+    baseUrl: process.env.BASE_URL || '',
     rateLimit: {
-        windowMS: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000'),
+        windowMS: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000'), // 15 minutes
         maxRequests: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || '100') // limit each IP to 100 requests per windowMs
     },
+    smtp: {
+        email: process.env.SMTP_EMAIL || '',
+        password: process.env.SMTP_PASSWORD || ''
+    }
+}
+
+export const dbConfig: DbConfig = {
     database: {
         host: process.env.DB_HOST || '127.0.0.1',
         port: parseInt(process.env.DB_PORT || '3307'),
@@ -54,4 +76,12 @@ export const config: Config = {
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME || 'local_todo_db',
     }
+}
+
+export const secretConfig: SecretsConfig = {
+    saltRounds: parseInt(process.env.SALT_ROUNDS || ''),
+    secretKey: process.env.SECRET_KEY || '',
+    refreshSecret: process.env.REFRESH_SECRET || '',
+    emailSecret: process.env.EMAIL_SECRET || '',
+    tokenExpiry: process.env.TOKEN_EXPIRY || ''
 }
