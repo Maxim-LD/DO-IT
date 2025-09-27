@@ -4,10 +4,12 @@ import db from "../config/db"
 export abstract class BaseRepository<T> {
     protected db: Knex
     protected tableName: string
+    protected primaryKey: string
 
-    constructor(tableName: string) {
+    constructor(tableName: string, primaryKey: string = 'id') {
         this.db = db
         this.tableName = tableName
+        this.primaryKey = primaryKey
     }
 
     async findById(id: string, trx?: Knex.Transaction): Promise<T | null> {
@@ -17,20 +19,31 @@ export abstract class BaseRepository<T> {
     }
 
     async create(data: Partial<T>, trx?: Knex.Transaction): Promise<T | null> {
-        const query = this.db(this.tableName).insert(data).returning('*')
-        if (trx) query.transacting(trx)
-        const [result] = await query
-        return result || null
+        const query = this.db(this.tableName).insert(data);
+        if (trx) query.transacting(trx);
+
+        const [insertedId] = await query;
+        const pk = this.primaryKey || 'id';
+        const fetchQuery = this.db(this.tableName).where(pk, insertedId).first();
+        if (trx) fetchQuery.transacting(trx);
+
+        const result = await fetchQuery;
+        return result || null;
     }
 
     async update(id: string, data: Partial<T>, trx?: Knex.Transaction): Promise<T | null> {
         const query = this.db(this.tableName)
-            .where(id, 'id')
-            .update({ ...data, updated_at: new Date() })
-            .returning('*')
-        if (trx) query.transacting(trx)
-        const [result] = await query
-        return result
+            .where({ id })
+            .update({ ...data, updated_at: new Date() });
+
+        if (trx) query.transacting(trx);
+        await query;
+
+        const selectQuery = this.db(this.tableName).where({ id }).first();
+        if (trx) selectQuery.transacting(trx);
+        const result = await selectQuery;
+
+        return result || null;
     }
 
     async findAll(
