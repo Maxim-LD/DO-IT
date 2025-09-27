@@ -42,8 +42,8 @@ export const errorHandler = (error: Error, req: Request, res: Response, next: Ne
         // The logger is configured with format.errors({ stack: true }), so it will automatically handle the stack.
         logger.error(`Error on ${req.method} ${req.originalUrl}`, {
             error,
-            url: req.url,
-            method: req.method,
+            // url: req.url,
+            // method: req.method,
             ip: req.ip,
             userAgent: req.get('User-Agent')
         });
