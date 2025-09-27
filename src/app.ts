@@ -20,7 +20,7 @@ app.use(morgan('dev'))
 
 app.use(globalRatelimit)
 
-app.use('/api', router)
+app.use('/api/v1', router)
 
 // Error handling
 app.use(notFoundHandler);
