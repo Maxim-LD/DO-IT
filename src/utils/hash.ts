@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt"
-import { config } from "../config"
+import { secretConfig } from "../config"
 
 export const hashPassword = async(secret: string):  Promise<string> => {
-    const salt = await bcrypt.genSalt(config.saltRounds)
+    const salt = await bcrypt.genSalt(secretConfig.saltRounds)
     return bcrypt.hash(secret, salt)
 }
 
