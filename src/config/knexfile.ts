@@ -1,10 +1,10 @@
 import type { Knex } from "knex";
-import { config } from "../config"
+import { dbConfig } from "../config"
 
 const knexConfig: { [key: string]: Knex.Config } = {
     development: {
         client: 'mysql2',
-        connection: config.database,
+        connection: dbConfig.database,
         pool: {
             min: 2,
             max: 10,
