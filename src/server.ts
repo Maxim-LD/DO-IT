@@ -42,8 +42,9 @@ const startServer = async (): Promise<void> => { // It doesn’t give back a val
 }
 
 // Handle unhandled promise rejections
-process.on('unhandledRejection', (reason: unknown, promise: Promise<unknown>) => {
-    logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
+process.on('unhandledRejection', (reason: any, promise: Promise<unknown>) => {
+    logger.error('Unhandled Rejection at:', promise);
+    logger.error('Reason:', reason?.stack || reason);
     process.exit(1);
 });
 
