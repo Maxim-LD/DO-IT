@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export class UserRepository extends BaseRepository<IUser> {
     constructor() {
-        super('users')
+        super('users', 'sn')
     }
 
     async findByEmail(email: string, trx?: Knex.Transaction): Promise<IUser | null> {
@@ -16,6 +16,12 @@ export class UserRepository extends BaseRepository<IUser> {
 
     async findByPhone(phone: string, trx?: Knex.Transaction): Promise<IUser | null> {
         const query = this.db(this.tableName).where('phone', phone).first()
+        if (trx) query.transacting(trx)
+        return query
+    }
+
+    async findByUsername(username: string, trx?: Knex.Transaction): Promise<IUser | null> {
+        const query = this.db(this.tableName).where('username', username).first()
         if (trx) query.transacting(trx)
         return query
     }
