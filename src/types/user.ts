@@ -7,6 +7,8 @@ export interface IUser {
     status?: string,
     occupation?: string,
     phone?: string,
+    is_email_verified: boolean
+    is_phone_verified: boolean
     created_at: Date;
     updated_at: Date;
     date_of_birth?: Date
@@ -14,7 +16,7 @@ export interface IUser {
 
 export interface CreateUserDTO {
     email: string;
-    password: string;
+    password?: string;
     username?: string;
     fullname: string;
     status?: string;
