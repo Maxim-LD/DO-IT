@@ -14,9 +14,9 @@ export class AuthRepository extends BaseRepository<IAuth> {
         return await this.db.transaction(async (trx) => {
             // Get provider record
             const provider = await this.db('providers').where('name', input.provider_name).first();
-            if (!provider) throw new BadRequestError("Unknown provider type");
+            if (!provider) throw new BadRequestError("Unknown provider type!");
     
-            if (!input.secret) throw new BadRequestError("Missing secret")
+            if (!input.secret) throw new BadRequestError("Missing secret!")
             const hashedSecret = await hashPassword(input.secret)
             
             const authdata: Partial<IAuth> = {
