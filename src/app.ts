@@ -1,4 +1,5 @@
 import express from 'express'
+import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
 import router from './router'
 import compression from 'compression'
@@ -12,10 +13,9 @@ app.set('trust proxy', 1);
 
 // Request parsing middleware
 app.use(express.json({ limit: '10mb' }));
+app.use(cookieParser())
 
-// Compression
 app.use(compression());
-
 app.use(morgan('dev'))
 
 app.use(globalRatelimit)
