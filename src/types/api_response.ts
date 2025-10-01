@@ -1,3 +1,5 @@
+import { IUser } from "./user";
+
 export interface IApiResponse<T = any> {
     success: boolean,
     message: string,
@@ -6,4 +8,10 @@ export interface IApiResponse<T = any> {
         code: string,
         stack?: string
     }
+}
+
+export interface ILoginResponse {
+    user: IUser;
+    accessToken: string;
+    refreshToken: string;
 }
