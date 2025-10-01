@@ -23,7 +23,7 @@ export const validator = (bodySchema: Schema | null, paramsSchema: Schema | null
     }
 }
 
-export const registerSchema = Joi.object({
+const registerSchema = Joi.object({
     email: Joi.string().trim().email().required().messages({
         "string.email": "Invalid email format!",
         "any.required": "Email is required!",
@@ -57,4 +57,34 @@ export const registerSchema = Joi.object({
     date_of_birth: Joi.date().max('now').allow('', null).optional()
 })
 
+const loginSchema = Joi.object({
+    email: Joi.string().trim().email().required().messages({
+        "string.email": "Invalid email format!",
+        "any.required": "Email is required!",
+        "string.empty": "Email cannot be empty"
+    }).allow('', null).optional(),
+    phone: Joi.string()
+        .trim()
+        .pattern(/^(?:\+234|234|0)[789][01]\d{8}$/)
+        .required()
+        .messages({
+            'string.pattern.base': 'Phone number must be in format 08XXXXXXXXX',
+        }).allow('', null).optional(),
+    username: Joi.string().allow('', null).optional(),
+    password: Joi.string()
+        .min(6)
+        .pattern(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).+$/)
+        .required()
+        .messages({
+            "string.min": "Password must be at least 6 characters",
+            "string.empty": "Password cannot be empty",
+            "any.required": "Password is required",
+            "string.pattern.base": "Password must contain letters, numbers, and special characters",
+        }),
+
+})
+
+    
+
 export const validateRegister = validator(registerSchema, null, null)
+export const validateLogin = validator(loginSchema, null, null)
