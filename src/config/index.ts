@@ -13,7 +13,8 @@ interface Config {
     smtp: {
         email: string
         password: string
-    }
+    },
+    redisUrl: string
 }
 
 interface SecretsConfig {
@@ -22,6 +23,7 @@ interface SecretsConfig {
     refreshSecret: string
     emailSecret: string
     tokenExpiry: string
+    refreshTokenExpiry: number
 }
 
 interface DbConfig {
@@ -58,6 +60,8 @@ export const config: Config = {
     port: parseInt(process.env.PORT || '3000', 10),
     nodeEnv: process.env.NODE_ENV || 'development',
     baseUrl: process.env.BASE_URL || '',
+    redisUrl: process.env.REDIS_URL || '',
+
     rateLimit: {
         windowMS: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000'), // 15 minutes
         maxRequests: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || '100') // limit each IP to 100 requests per windowMs
@@ -79,9 +83,10 @@ export const dbConfig: DbConfig = {
 }
 
 export const secretConfig: SecretsConfig = {
-    saltRounds: parseInt(process.env.SALT_ROUNDS || ''),
+    saltRounds: Number(process.env.SALT_ROUNDS) || 10,
     secretKey: process.env.SECRET_KEY || '',
     refreshSecret: process.env.REFRESH_SECRET || '',
     emailSecret: process.env.EMAIL_SECRET || '',
-    tokenExpiry: process.env.TOKEN_EXPIRY || ''
-}
+    tokenExpiry: process.env.TOKEN_EXPIRY || '',
+    refreshTokenExpiry: (Number(process.env.REFRESH_TOKEN_EXPIRY_DAYS) || 5) * 24 * 60 * 60 // days → seconds
+};

@@ -33,10 +33,10 @@ export class DataBaseConnection {
             })
 
             // Test connection
-            const connection = await this.pool.getConnection()
-            await connection.ping()
-            connection.release()
-            logger.info('Database connection established successfully')
+            // const connection = await this.pool.getConnection()
+            // await connection.ping()
+            // connection.release()
+            // logger.info('Database connection established successfully')
         } catch (error) {
             logger.error('Failed to connect to database')
             throw error
