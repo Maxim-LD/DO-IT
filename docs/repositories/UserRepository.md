@@ -1,4 +1,4 @@
-# UserRepository
+# User Repository
 
 Handles DB queries for user entity.
 
@@ -10,7 +10,7 @@ Handles DB queries for user entity.
 - Fetch all users
 
 ## Methods
-- `createUser(user: CreateAuthDTO)`
+- `createUser(user: CreateUserDTO)`
 - `findByEmail(email: string)`
 - `findById(id: number)`
 - `findAll()`
