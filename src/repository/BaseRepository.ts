@@ -13,9 +13,18 @@ export abstract class BaseRepository<T> {
     }
 
     async findById(id: string, trx?: Knex.Transaction): Promise<T | null> {
-        const query = this.db(this.tableName).where('id', id).first()
+        let query = this.db(this.tableName).where('id', id).first()
+        if (trx) query = query.transacting(trx)
+        
+        const result = await query
+        return result || null
+    }
+
+    async findOne(key: string, value: any, trx?: Knex.Transaction): Promise<T | null> {
+        const query = this.db(this.tableName).where(key, value).first()
         if (trx) query.transacting(trx)
-        return query
+        const result = await query
+        return result || null 
     }
 
     async create(data: Partial<T>, trx?: Knex.Transaction): Promise<T | null> {
@@ -68,7 +77,7 @@ export abstract class BaseRepository<T> {
         return result > 0
     }
 
-     async count(conditions: any = {}, trx?: Knex.Transaction): Promise<number> {
+    async count(conditions: any = {}, trx?: Knex.Transaction): Promise<number> {
         const query = this.db(this.tableName).where(conditions).count('* as count').first()
         if (trx) query.transacting(trx)
         const result = await query
