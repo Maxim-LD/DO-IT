@@ -9,10 +9,7 @@ redis.on('connect', () => {
     logger.info(`✅ Redis connected successfully`);
 });
 
-redis.on('error', (error) => {
-    logger.error("❌ Redis connection error:", { error: error.message });
-});
-
-redis.on('reconnecting', () => {
-    logger.warn("🔄 Redis attempting to reconnect...");
-});
+redis.on("error", (error) => {
+    logger.error("❌ Redis connection error:", { error: error.message })
+    redis.disconnect()
+})
