@@ -1,5 +1,5 @@
 import db from "../config/db";
-import { config, secretConfig } from "../config";
+import { secretConfig } from "../config";
 import { AuthRepository } from "../repository/AuthRepository";
 import { UserRepository } from "../repository/UserRepository";
 import { CreateAuthDTO } from "../types/auth";
@@ -8,7 +8,6 @@ import { ConflictError, NotFoundError, UnauthorizedError } from "../utils/errors
 import { generateToken, verifyToken } from "../utils/token";
 import { comparePassword } from "../utils/hash";
 import { ILoginResponse } from "../types/api_response";
-import { setCache } from "../utils/caching";
 import { TokenService } from "./TokenService";
 
 export class AuthService {
@@ -16,13 +15,11 @@ export class AuthService {
     private authRepository: AuthRepository
     private emailSecret = secretConfig.emailSecret
     private secretKey = secretConfig.secretKey
-    private refreshKey = secretConfig.refreshSecret
 
     constructor() {
         this.userRepository = new UserRepository()
         this.authRepository = new AuthRepository()
     }
-
 
     async registerUser(userInput: CreateUserDTO): Promise<IUser | null> {
         return await db.transaction(async (trx) => {  
