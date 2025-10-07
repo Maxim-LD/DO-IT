@@ -22,6 +22,13 @@ app.use(globalRatelimit)
 
 app.use('/api/v1', router)
 
+app.use('/', (req, res) => {
+    return res.status(200).json({
+        success: true,
+        message: 'Welcome to DO-IT Backend service'
+    })
+})
+
 // Error handling
 app.use(notFoundHandler);
 app.use(errorHandler);
