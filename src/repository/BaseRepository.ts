@@ -1,10 +1,11 @@
 import { Knex } from "knex"
 import db from "../config/db"
 
-export abstract class BaseRepository<T> {
+export abstract class BaseRepository<T> { // This class marked (abstract) is not ready yet it has to be extended to be used
+    // Protected members can be inherited by child objects - while private can only be accessed within the parent class
     protected db: Knex
     protected tableName: string
-    protected primaryKey: string
+    protected primaryKey: string 
 
     constructor(tableName: string, primaryKey: string = 'id') {
         this.db = db
