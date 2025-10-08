@@ -24,7 +24,7 @@ app.use('/api/v1', router)
 
 app.use(notFoundHandler);
 
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
     return res.status(200).json({
         success: true,
         message: 'Welcome to Agendos Backend service'
