@@ -22,15 +22,17 @@ app.use(globalRatelimit)
 
 app.use('/api/v1', router)
 
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
     return res.status(200).json({
         success: true,
         message: 'Welcome to Agendos Backend service'
     })
 })
 
-// Error handling
+// Handle all other routes that are not found
 app.use(notFoundHandler);
+
+// Error handling
 app.use(errorHandler);
 
 export default app
