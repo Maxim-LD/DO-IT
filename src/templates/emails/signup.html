@@ -7,37 +7,41 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f4f4;
+      background-color: #f5f5f5; /* --light-gray */
       margin: 0;
       padding: 0;
     }
     .container {
       max-width: 600px;
       margin: 40px auto;
-      background-color: #ffffff;
+      background-color: #ffffff; /* --pure-white */
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     .header {
-      background-color: #0078D4;
-      color: #ffffff;
+      background-color: #007aff; /* --electric-blue */
+      color: #ffffff; /* --pure-white */
       padding: 20px;
       text-align: center;
     }
     .content {
       padding: 30px;
-      color: #333333;
+      color: #1e1e1e; /* --charcoal-black */
     }
     .button {
       display: inline-block;
       margin-top: 20px;
       padding: 12px 24px;
-      background-color: #0078D4;
-      color: #ffffff;
+      background-color: #007aff; /* --electric-blue */
+      color: #ffffff; /* --pure-white */
       text-decoration: none;
       border-radius: 4px;
       font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .button:hover {
+      background-color: #ff7a00; /* --vibrant-orange */
     }
     .footer {
       padding: 20px;
@@ -50,7 +54,22 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1>Welcome to DO-IT</h1>
+      <!-- Combined Agendos Logo -->
+      <svg width="200" height="50" viewBox="0 0 250 60" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 10px;">
+        <g transform="translate(0, -10)">
+          <!-- AgendosIcon -->
+          <g>
+            <circle cx="40" cy="40" r="28" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-dasharray="175.929 175.929" stroke-dashoffset="26.389" transform="rotate(-90 40 40)"></circle>
+            <path d="M 30,24 L 30,56 Q 30,60 34,62.4 Q 40,65.6 46.4,62.4 Q 52,59.2 52,52 L 52,28 Q 52,20.8 46.4,17.6 Q 40,14.4 34,17.6 Q 30,20 30,24 Z" fill="#ffffff"></path>
+            <circle cx="40" cy="40" r="6.5" fill="#ff7a00"></circle>
+          </g>
+          <!-- AgendosWordmark -->
+          <text x="170" y="45" dominant-baseline="middle" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="28" font-weight="bold" fill="#ffffff">
+            AGENDOS
+          </text>
+        </g>
+      </svg>
+      <h1>Welcome to AGENDOS</h1>
     </div>
     <div class="content">
       <p>Hi <strong>{{name}}</strong>,</p>
@@ -59,9 +78,8 @@
       <p>If you didn’t sign up for this account, you can safely ignore this email.</p>
     </div>
     <div class="footer">
-      &copy; {{year}} DO-IT. All rights reserved.
+      &copy; {{year}} AGENDOS. All rights reserved.
     </div>
   </div>
 </body>
 </html>
-

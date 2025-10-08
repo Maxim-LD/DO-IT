@@ -13,7 +13,7 @@ export const sendEmail = async (to: string, subject: string, html: string): Prom
         })
 
         const mailOptions = {
-            from: `'DO-IT' <${config.smtp.email}>`,
+            from: `'AGENDOS' <${config.smtp.email}>`,
             to,
             subject,
             html
