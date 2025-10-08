@@ -1,4 +1,4 @@
-# DO-IT — Task Management API
+# AGENDOS — Task Management API
 
 A clean, layered backend API for a Task Management app built with Node.js and TypeScript.
 

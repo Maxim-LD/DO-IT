@@ -1,5 +1,5 @@
 {
-  "name": "do-it-backend",
+  "name": "agendos-backend-api",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -8,12 +8,18 @@
     "build": "tsc",
     "start": "npm run build && node ./dist/server.js",
     "dev": "cross-env NODE_ENV=development nodemon --exec ts-node ./src/server.ts",
+    "prod": "cross-env NODE_ENV=production nodemon --exec ts-node ./src/server.ts",
     "dev:debug": "cross-env NODE_ENV=development nodemon --exec \"node --inspect=9229 -r ts-node/register ./src/server.ts\"",
+    
     "migrate:make": "knex migrate:make",
     "migrate": "knex migrate:latest",
     "migrate:rollback": "knex migrate:rollback",
-    "seed": "knex seed:run",
-    "seed:make": "knex seed:make"
+
+    "migrate:prod": "cross-env NODE_ENV=production knex migrate:latest",
+    "seed:prod": "cross-env NODE_ENV=production knex seed:run",
+
+    "seed:make": "knex seed:make",
+    "seed": "knex seed:run"
   },
   "keywords": [],
   "author": "",
