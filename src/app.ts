@@ -22,6 +22,8 @@ app.use(globalRatelimit)
 
 app.use('/api/v1', router)
 
+app.use(notFoundHandler);
+
 app.use('/', (req, res) => {
     return res.status(200).json({
         success: true,
@@ -30,7 +32,6 @@ app.use('/', (req, res) => {
 })
 
 // Error handling
-app.use(notFoundHandler);
 app.use(errorHandler);
 
 export default app
