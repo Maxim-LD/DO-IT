@@ -25,7 +25,7 @@ app.use('/api/v1', router)
 app.use('/', (req, res) => {
     return res.status(200).json({
         success: true,
-        message: 'Welcome to DO-IT Backend service'
+        message: 'Welcome to Agendos Backend service'
     })
 })
 
